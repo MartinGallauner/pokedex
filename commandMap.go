@@ -4,7 +4,8 @@ import "fmt"
 
 func commandMap() error {
 	locations := getLocations()
-	fmt.Println(locations)
-
+	for _, val := range locations.Results {
+		fmt.Println(val.Name)
+	}
 	return nil
 }
