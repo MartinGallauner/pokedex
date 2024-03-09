@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/martingallauner/pokedex/internal/pokeapi"
 	"os"
 	"strings"
 )
@@ -10,10 +11,10 @@ import (
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*config) error
 }
 
-func startRepl() {
+func startRepl(cfg *config) {
 	reader := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("Pokedex > ")
@@ -28,7 +29,7 @@ func startRepl() {
 
 		command, exists := getCommands()[commandName]
 		if exists {
-			err := command.callback()
+			err := command.callback(cfg)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -54,12 +55,12 @@ func getCommands() map[string]cliCommand {
 		},
 		"map": {
 			name:        "map",
-			description: "Shows the next 20 locations",
+			description: "Shows the next page of locations",
 			callback:    commandMapf,
 		},
 		"mapb": {
 			name:        "mapb",
-			description: "Shows the previous 20 locations",
+			description: "Shows the previous page of locations",
 			callback:    commandMapb,
 		},
 	}
@@ -71,7 +72,8 @@ func cleanInput(text string) []string {
 	return words
 }
 
-type Config struct {
-	Next     string
-	Previous string
+type config struct {
+	pokeapiClient        pokeapi.Client
+	nextLocationsURL     *string
+	previousLocationsURL *string
 }
