@@ -1,4 +1,4 @@
-package main
+package pokeapi
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func getLocations() LocationResponse {
+func GetLocations() LocationResponse {
 	res, err := http.Get("http://pokeapi.co/api/v2/location")
 	if err != nil {
 		log.Fatal(err)
@@ -28,15 +28,4 @@ func getLocations() LocationResponse {
 		fmt.Println(err)
 	}
 	return response
-}
-
-type LocationResponse struct {
-	Count    int       `json:"count"`
-	Next     string    `json:"next"`
-	Previous string    `json:"previous"`
-	Results  []Results `json:"results"`
-}
-type Results struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
 }

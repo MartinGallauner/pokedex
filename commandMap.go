@@ -1,9 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/martingallauner/pokedex/internal/pokeapi"
+)
 
 func commandMapf() error {
-	response := getLocations()
+	response := pokeapi.GetLocations()
 	for _, val := range response.Results {
 		fmt.Println(val.Name)
 	}
@@ -11,7 +14,7 @@ func commandMapf() error {
 }
 
 func commandMapb() error {
-	response := getLocations()
+	response := pokeapi.GetLocations()
 	for _, val := range response.Results {
 		fmt.Println(val.Name)
 	}
