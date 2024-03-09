@@ -1,7 +1,10 @@
 package main
 
+import "fmt"
+
 func commandMap() error {
-	getLocations()
+	locations := getLocations()
+	fmt.Println(locations)
 
 	return nil
 }

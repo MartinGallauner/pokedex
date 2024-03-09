@@ -1,13 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 )
 
-func getLocations() {
+func getLocations() LocationResponse {
 	res, err := http.Get("http://pokeapi.co/api/v2/location")
 	if err != nil {
 		log.Fatal(err)
@@ -20,5 +21,22 @@ func getLocations() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%s", body)
+	response := LocationResponse{}
+	err = json.Unmarshal(body, &response)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	return response
+}
+
+type LocationResponse struct {
+	Count    int       `json:"count"`
+	Next     string    `json:"next"`
+	Previous any       `json:"previous"`
+	Results  []Results `json:"results"`
+}
+type Results struct {
+	Name string `json:"name"`
+	URL  string `json:"url"`
 }
