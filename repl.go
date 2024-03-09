@@ -55,7 +55,12 @@ func getCommands() map[string]cliCommand {
 		"map": {
 			name:        "map",
 			description: "Shows the next 20 locations",
-			callback:    commandMap,
+			callback:    commandMapf,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Shows the previous 20 locations",
+			callback:    commandMapb,
 		},
 	}
 }
@@ -64,4 +69,9 @@ func cleanInput(text string) []string {
 	output := strings.ToLower(text)
 	words := strings.Fields(output)
 	return words
+}
+
+type Config struct {
+	Next     string
+	Previous string
 }
