@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/martingallauner/pokedex/internal/pokeapi"
+	"github.com/martingallauner/pokedex/internal/pokecache"
 	"os"
 	"strings"
 )
@@ -74,6 +75,7 @@ func cleanInput(text string) []string {
 
 type config struct {
 	pokeapiClient        pokeapi.Client
+	pokeCache            pokecache.Cache
 	nextLocationsURL     *string
 	previousLocationsURL *string
 }
