@@ -12,7 +12,7 @@ import (
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(*config, string) error
 }
 
 func startRepl(cfg *config) {
@@ -28,9 +28,14 @@ func startRepl(cfg *config) {
 
 		commandName := words[0]
 
+		var parameter string
+		if len(words) == 2 {
+			parameter = words[1]
+		}
+
 		command, exists := getCommands()[commandName]
 		if exists {
-			err := command.callback(cfg)
+			err := command.callback(cfg, parameter)
 			if err != nil {
 				fmt.Println(err)
 			}
