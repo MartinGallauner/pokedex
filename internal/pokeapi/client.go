@@ -13,7 +13,7 @@ type Client struct {
 
 func NewClient(timeout time.Duration) Client {
 	return Client{
-		cache: pokecache.NewCache(5 * time.Second),
+		cache: pokecache.NewCache(60 * time.Minute),
 		httpClient: http.Client{
 			Timeout: timeout,
 		},
