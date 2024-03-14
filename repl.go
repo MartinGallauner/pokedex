@@ -70,9 +70,14 @@ func getCommands() map[string]cliCommand {
 			callback:    commandMapb,
 		},
 		"explore": {
-			name:        "xplore",
+			name:        "explore",
 			description: "Pass the name of the location you want to explore",
 			callback:    commandExplore,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Pass the name of the pokemon you want to try to catch",
+			callback:    commandCatch,
 		},
 	}
 }
