@@ -3,19 +3,13 @@ package main
 import "fmt"
 
 func commandCatch(cfg *config, parameter string) error {
-	response, err := cfg.pokeapiClient.ExploreLocation(cfg.nextLocationsURL, parameter)
+	response, err := cfg.pokeapiClient.CatchPokemon(parameter)
 	if err != nil {
 		return err
 	}
 
-	if len(response.PokemonEncounters) == 0 {
-		return nil
-	}
+	fmt.Println("Catched the following Pokemon:")
+	fmt.Println(response.Name)
 
-	fmt.Println("Found the following Pokemon:")
-
-	for _, val := range response.PokemonEncounters {
-		fmt.Println(fmt.Sprintf("- %v", val.Pokemon.Name))
-	}
 	return nil
 }
