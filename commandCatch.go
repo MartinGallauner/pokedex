@@ -1,21 +1,25 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func commandCatch(cfg *config, parameter string) error {
 	pokemon, err := cfg.pokeapiClient.CatchPokemon(parameter)
 	if err != nil {
 		return err
 	}
+	fmt.Println(fmt.Sprintf("Throwing a pokeball at %v...", parameter))
 
-	fmt.Println("Catch the following Pokemon:")
-	fmt.Println(pokemon.Name)
+	chance := rand.Intn(400)
 
-	//todo calculate chances of catching pokemon
+	if chance > pokemon.BaseExperience {
+		fmt.Println(fmt.Sprintf("%v was caught!", pokemon.Name))
+		(*cfg.pokedex)[pokemon.Name] = pokemon
+		return nil
+	}
 
-	//todo add pokemon to pokedex
-
-	(*cfg.pokedex)[pokemon.Name] = pokemon
-
+	fmt.Println(fmt.Sprintf("%v escaped!", pokemon.Name))
 	return nil
 }
