@@ -9,10 +9,6 @@ import (
 func (c *Client) ExploreLocation(pageURL *string, parameter string) (LocationResponse, error) {
 	url := baseURL + "/location-area/" + parameter
 
-	if pageURL != nil {
-		url = *pageURL
-	}
-
 	if val, ok := c.cache.Get(url); ok {
 		response := LocationResponse{}
 		err := json.Unmarshal(val, &response)

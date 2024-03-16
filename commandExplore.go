@@ -9,6 +9,7 @@ func commandExplore(cfg *config, parameter string) error {
 	}
 
 	if len(response.PokemonEncounters) == 0 {
+		fmt.Println("Found no Pokemon")
 		return nil
 	}
 
