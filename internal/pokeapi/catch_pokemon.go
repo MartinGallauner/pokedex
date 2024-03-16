@@ -6,39 +6,29 @@ import (
 	"net/http"
 )
 
-func (c *Client) CatchPokemon(parameter string) (PokemonResponse, error) {
+func (c *Client) CatchPokemon(parameter string) (Pokemon, error) {
 	url := baseURL + "/pokemon/" + parameter
-
-	if val, ok := c.cache.Get(url); ok {
-		response := PokemonResponse{}
-		err := json.Unmarshal(val, &response)
-		if err != nil {
-			return PokemonResponse{}, err
-		}
-		return response, nil
-	}
 
 	req, error := http.NewRequest("GET", url, nil)
 	if error != nil {
-		return PokemonResponse{}, error
+		return Pokemon{}, error
 	}
 
 	resp, error := c.httpClient.Do(req)
 	if error != nil {
-		return PokemonResponse{}, error
+		return Pokemon{}, error
 	}
 	defer resp.Body.Close()
 
 	dat, error := io.ReadAll(resp.Body)
 	if error != nil {
-		return PokemonResponse{}, error
+		return Pokemon{}, error
 	}
 
-	response := PokemonResponse{}
+	response := Pokemon{}
 	error = json.Unmarshal(dat, &response)
 	if error != nil {
-		return PokemonResponse{}, error
+		return Pokemon{}, error
 	}
-	c.cache.Add(url, dat)
 	return response, nil
 }

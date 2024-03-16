@@ -91,6 +91,7 @@ func cleanInput(text string) []string {
 type config struct {
 	pokeapiClient        pokeapi.Client
 	pokeCache            pokecache.Cache
+	pokedex              *map[string]pokeapi.Pokemon
 	nextLocationsURL     *string
 	previousLocationsURL *string
 }

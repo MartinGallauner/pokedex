@@ -3,13 +3,19 @@ package main
 import "fmt"
 
 func commandCatch(cfg *config, parameter string) error {
-	response, err := cfg.pokeapiClient.CatchPokemon(parameter)
+	pokemon, err := cfg.pokeapiClient.CatchPokemon(parameter)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println("Catched the following Pokemon:")
-	fmt.Println(response.Name)
+	fmt.Println("Catch the following Pokemon:")
+	fmt.Println(pokemon.Name)
+
+	//todo calculate chances of catching pokemon
+
+	//todo add pokemon to pokedex
+
+	(*cfg.pokedex)[pokemon.Name] = pokemon
 
 	return nil
 }
