@@ -9,6 +9,15 @@ func commandInspect(cfg *config, parameter string) error {
 		fmt.Println("You have not caught that pokemon.")
 		return nil
 	}
-	fmt.Println(pokemon)
+
+	fmt.Printf("Name: %v\n", pokemon.Name)
+	fmt.Printf("Height: %v\n", pokemon.Height)
+	fmt.Printf("Weight: %v\n", pokemon.Weight)
+
+	for _, stat := range pokemon.Stats {
+		fmt.Printf("  -%v: %v\n", stat.Stat.Name, stat.BaseStat)
+
+	}
+
 	return nil
 }
